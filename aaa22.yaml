@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  title: test
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /autori:
+    get:
+      summary: ''
+      operationId: get-autori
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Autore'
+      description: |
+        Restituisce gli autori.</br>
+        È possibile filtrare gli autori grazie al parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/autori?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
+        questa richiesta restituirà tutti gli autori che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000
+        - **/autori?search=nome:Mario,cognome!Rossi**<br/>
+        questa richiesta restituirà tutti gli autori che si chiamano Mario e che hanno il cognome diverso da Rossi
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Parametro che permette il filtraggio dei dati
+    post:
+      summary: ''
+      operationId: post-autori
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '400':
+          description: Bad Request
+      description: Aggiunge un nuovo autore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Autore'
+  '/autori/{autoreId}':
+    parameters:
+      - schema:
+          type: integer
+        name: autoreId
+        in: path
+        required: true
+        description: id dell'autore
+    get:
+      summary: Your GET endpoint
+      tags: []
+      operationId: get-autori-autoreId
+      description: Restituisce l'autore il cui id è uguale al parametro autoreId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '400':
+          description: Bad Request
+    post:
+      summary: ''
+      operationId: post-autori-autoreId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '400':
+          description: Bad Request
+      description: Aggiorna l'autore il cui id è uguale al parametro autoreId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Autore'
+    delete:
+      summary: ''
+      operationId: delete-autori-autoreId
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: Elimina l'autore il cui id è uguale al parametro autoreId
+  /caseEditrici:
+    get:
+      summary: ''
+      operationId: get-casaEditrici
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CasaEditrice'
+        '400':
+          description: Bad Request
+      description: |-
+        Restituisce le case editrici.</br>
+        È possibile filtrare le case editrici grazie al parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/casaEditrici?search=nome:Adriano\*,nome:*tore,id>300,id<2000** <br/>
+        questa richiesta restituirà tutte le case editrici che hanno un nome che inizia con Adriano,che termina con tore e un id compreso tra 300 e 2000
+        - **/autori?search=nome!Mondadori**<br/>
+        questa richiesta restituirà tutte le case editrici che hanno un nome diverso da Mondadori
+    post:
+      summary: ''
+      operationId: post-casaEditrici
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasaEditrice'
+        '400':
+          description: Bad Request
+      description: Aggiunge una nuova casa editrice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasaEditrice'
+    parameters: []
+  '/caseEditrici/{casaEditriceId}':
+    parameters:
+      - schema:
+          type: string
+        name: casaEditriceId
+        in: path
+        required: true
+        description: id della casa editrice
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasaEditrice'
+        '400':
+          description: Bad Request
+      operationId: get-caseEditrici-casaEditriceId
+      description: Restituisce la casa editrice il cui id è uguale al parametro casaEditriceId
+    post:
+      summary: ''
+      operationId: post-caseEditrici-casaEditriceId
+      responses:
+        '200':
+          description: OK
+      description: Aggiorna la casa editrice il cui id è uguale al parametro casaEditriceId
+    delete:
+      summary: ''
+      operationId: delete-caseEditrici-casaEditriceId
+      responses:
+        '200':
+          description: OK
+      description: Elimina la casa editrice il cui id è uguale al parametro casaEditriceId
+components:
+  schemas:
+    Autore:
+      description: ''
+      type: object
+      x-examples:
+        Joanne Rowling:
+          id: 1000
+          nome: Joanne
+          cognome: Rowling
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        cognome:
+          type: string
+      required:
+        - id
+        - nome
+        - cognome
+    CasaEditrice:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - nome
+      x-examples:
+        Adriano Salani Editore:
+          id: 1000
+          nome: Adriano Salani Editore
