@@ -1,0 +1,952 @@
+openapi: 3.0.0
+info:
+  title: BibliotecaAPI
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /autori:
+    get:
+      summary: ''
+      operationId: get-autori
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Autore'
+      description: |
+        Restituisce gli autori.</br>
+        È possibile filtrare gli autori utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/autori?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
+        questa richiesta restituirà tutti gli autori che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
+        - **/autori?search=nome:Mario,cognome!Rossi**<br/>
+        questa richiesta restituirà tutti gli autori che si chiamano Mario e che hanno il cognome diverso da Rossi.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Parametro che permette il filtraggio dei dati
+    post:
+      summary: ''
+      operationId: post-autori
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '400':
+          description: Bad Request
+      description: Aggiunge un nuovo autore.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+              required:
+                - nome
+                - cognome
+  '/autori/{autoreId}':
+    parameters:
+      - schema:
+          type: integer
+        name: autoreId
+        in: path
+        required: true
+        description: id dell'autore
+    get:
+      summary: Your GET endpoint
+      tags: []
+      operationId: get-autori-autoreId
+      description: Restituisce l'autore il cui id è uguale al parametro di path autoreId.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '404':
+          description: Not Found
+    post:
+      summary: ''
+      operationId: post-autori-autoreId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Autore'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna l'autore il cui id è uguale al parametro di path autoreId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+              required:
+                - nome
+                - cognome
+    delete:
+      summary: ''
+      operationId: delete-autori-autoreId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: |-
+        Elimina l'autore il cui id è uguale al parametro di path autoreId.</br>
+        Con l'eliminazione di un autore, verranno eliminati tutti i libri in cui l'autore eliminato è l'unico autore e in caso non sia l'unico l'autore verrà rimosso dagli autori di quell'libro.
+  /caseEditrici:
+    get:
+      summary: ''
+      operationId: get-casaEditrici
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CasaEditrice'
+      description: |-
+        Restituisce le case editrici.</br>
+        È possibile filtrare le case editrici utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/casaEditrici?search=nome:Adriano\*,nome:*tore,id>300,id<2000** <br/>
+        questa richiesta restituirà tutte le case editrici che hanno un nome che inizia con Adriano,che termina con tore e un id compreso tra 300 e 2000.
+        - **/casaEditrici?search=nome!Mondadori**<br/>
+        questa richiesta restituirà tutte le case editrici che hanno un nome diverso da Mondadori.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Parametro che permette il filtraggio dei dati
+    post:
+      summary: ''
+      operationId: post-casaEditrici
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasaEditrice'
+        '400':
+          description: Bad Request
+      description: Aggiunge una nuova casa editrice.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+              required:
+                - nome
+    parameters: []
+  '/caseEditrici/{casaEditriceId}':
+    parameters:
+      - schema:
+          type: string
+        name: casaEditriceId
+        in: path
+        required: true
+        description: id della casa editrice
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasaEditrice'
+        '404':
+          description: Not Found
+      operationId: get-caseEditrici-casaEditriceId
+      description: Restituisce la casa editrice il cui id è uguale al parametro di path casaEditriceId.
+    post:
+      summary: ''
+      operationId: post-caseEditrici-casaEditriceId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasaEditrice'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna la casa editrice il cui id è uguale al parametro di path casaEditriceId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+              required:
+                - nome
+        description: ''
+    delete:
+      summary: ''
+      operationId: delete-caseEditrici-casaEditriceId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: |-
+        Elimina la casa editrice il cui id è uguale al parametro di path casaEditriceId.</br>
+        Con l'eliminazione di una casa editrice verranno eliminati anche tutti i libri rilasciati da questa.
+  /clientiTesserati:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteTesserato'
+      operationId: get-clientiTesserati
+      parameters:
+        - schema:
+            type: string
+          in: query
+          description: Parametro che permette il filtraggio dei dati
+          name: search
+      description: |-
+        Restituisce i clienti tesserati.</br>
+        È possibile filtrare i clienti tesserati utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/clientiTesserati?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
+        questa richiesta restituirà tutti i clienti tesserati che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
+        - **/clientiTesserati?search=nome:Mario,cognome!Rossi**<br/>
+        questa richiesta restituirà tutti i clienti tesserati che si chiamano Mario e che hanno il cognome diverso da Rossi.
+    post:
+      summary: ''
+      operationId: post-clientiTesserati
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteTesserato'
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+                codiceFiscale:
+                  type: string
+                  minLength: 16
+                  maxLength: 16
+                idTessera:
+                  type: number
+              required:
+                - nome
+                - cognome
+                - codiceFiscale
+                - idTessera
+      description: Aggiunge un nuovo cliente tesserato.
+  '/clientiTesserati/{clienteTesseratoId}':
+    parameters:
+      - schema:
+          type: string
+        name: clienteTesseratoId
+        in: path
+        required: true
+        description: id del cliente tesserato
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteTesserato'
+        '404':
+          description: Not Found
+      operationId: get-clientiTesserati-clienteTesseratoId
+      description: Restituisce il cliente tesserato il cui id è uguale al parametro di path clienteTesseratoId.
+    post:
+      summary: ''
+      operationId: post-clientiTesserati-clienteTesseratoId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteTesserato'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna il cliente tesserato il cui id è uguale al parametro di path clienteTesseratoId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+                codiceFiscale:
+                  type: string
+                  minLength: 16
+                  maxLength: 16
+                idTessera:
+                  type: number
+              required:
+                - nome
+                - cognome
+                - codiceFiscale
+                - idTessera
+    delete:
+      summary: ''
+      operationId: delete-clientiTesserati-clienteTesseratoId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: |-
+        Elimina il cliente tesserato il cui id è uguale al parametro di path clienteTesseratoId.</br>
+        Con l'eliminazione di un cliente tesserato le copie a lui assegnatogli verranno rese disponibili.
+  /clientiNonTesserati:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteNonTesserato'
+      operationId: get-clientiNonTesserati
+      description: |-
+        Restituisce i clienti tesserati.</br>
+        È possibile filtrare i clienti non tesserati utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/clientiNonTesserati?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
+        questa richiesta restituirà tutti i clienti non tesserati che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
+        - **/clientiNonTesserati?search=nome:Mario,cognome!Rossi**<br/>
+        questa richiesta restituirà tutti i clienti non tesserati che si chiamano Mario e che hanno il cognome diverso da Rossi.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          description: Parametro che permette il filtraggio dei dati
+          name: search
+    post:
+      summary: ''
+      operationId: post-clientiNonTesserati
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteNonTesserato'
+        '400':
+          description: Bad Request
+      description: Aggiunge un nuovo cliente non tesserato.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+                codiceFiscale:
+                  type: string
+                  minLength: 16
+                  maxLength: 16
+              required:
+                - nome
+                - cognome
+                - codiceFiscale
+  '/clientiNonTesserati/{clienteNonTesseratoId}':
+    parameters:
+      - schema:
+          type: string
+        name: clienteNonTesseratoId
+        in: path
+        required: true
+        description: id del cliente non tesserato
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteNonTesserato'
+        '404':
+          description: Not Found
+      operationId: get-clientiNonTesserati-clienteNonTesseratoId
+      description: Restituisce il cliente tesserato il cui id è uguale al parametro di path clienteNonTesseratoId.
+    post:
+      summary: ''
+      operationId: post-clientiNonTesserati-clienteNonTesseratoId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteNonTesserato'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna il cliente non tesserato il cui id è uguale al parametro di path clienteNonTesseratoId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                nome:
+                  type: string
+                cognome:
+                  type: string
+                codiceFiscale:
+                  type: string
+                  minLength: 16
+                  maxLength: 16
+              required:
+                - nome
+                - cognome
+                - codiceFiscale
+    delete:
+      summary: ''
+      operationId: delete-clientiNonTesserati-clienteNonTesseratoId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: |-
+        Elimina il cliente non tesserato il cui id è uguale al parametro di path clienteNonTesseratoId.</br>
+        Con l'eliminazione di un cliente non tesserato la copia a lui assegnatogli verrà resa disponibile.
+  /libri:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Libro'
+      operationId: get-libri
+      description: |-
+        Restituisce i libri.</br>
+        È possibile filtrare i libri utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/libri?search=titolo:Le avventure\*,titolo:Le :*io,anno!1998,id>300,id<2000** <br/>
+        questa richiesta restituirà tutte i libri che hanno un nome che inizia con Le avventure,che termina con io, un anno di pubblicazione diverso da 1998 e un id compreso tra 300 e 2000.
+        - **/libri?search=nome!Le avventure**<br/>
+        questa richiesta restituirà tutti i libri che non iniziano con Le avventure.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          description: Parametro che permette il filtraggio dei dati
+          name: search
+    post:
+      summary: ''
+      operationId: post-libri
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+        '400':
+          description: Bad Request
+      description: Aggiunge un nuovo libro.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                isbn:
+                  type: number
+                titolo:
+                  type: string
+                anno:
+                  type: number
+                casaEditrice:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: number
+                autori:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                prequel:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+              required:
+                - isbn
+                - titolo
+                - anno
+                - casaEditrice
+                - autori
+  '/libri/{libroId}':
+    parameters:
+      - schema:
+          type: string
+        name: libroId
+        in: path
+        required: true
+        description: id del libro
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+        '404':
+          description: Not Found
+      operationId: get-libri-libroId
+      description: Restituisce il cliente tesserato il cui id è uguale al parametro di path clienteNonTesseratoId.
+    post:
+      summary: ''
+      operationId: post-libri-libroId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna il libro il cui id è uguale al parametro di path libroId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                isbn:
+                  type: number
+                titolo:
+                  type: string
+                anno:
+                  type: number
+                casaEditrice:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+                autori:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                    required:
+                      - id
+                prequel:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                  required:
+                    - id
+              required:
+                - isbn
+                - titolo
+                - anno
+                - casaEditrice
+                - autori
+    delete:
+      summary: ''
+      operationId: delete-libri-libroId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: |-
+        Elimina il libro il cui id è uguale al parametro di path libroId.</br>
+        Con l'eliminazione di un libro verranno eliminate anche le sue copie.
+  /copie:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Copia'
+      operationId: get-copie
+      description: |-
+        Restituisce le copie.</br>
+        È possibile filtrare le copie utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/copie?search=disponibile:true** <br/>
+        questa richiesta restituirà tutte le copie disponibili
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: Parametro che permette il filtraggio dei dati
+    post:
+      summary: ''
+      operationId: post-copie
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Copia'
+        '400':
+          description: Bad Request
+      description: Aggiunge una nuova copia.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                libro:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: number
+                disponibile:
+                  type: boolean
+                cliente:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+              required:
+                - libro
+                - disponibile
+  '/copie/{copiaId}':
+    parameters:
+      - schema:
+          type: string
+        name: copiaId
+        in: path
+        required: true
+        description: id della copia
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Copia'
+        '404':
+          description: Not Found
+      operationId: get-copie-copiaId
+      description: Restituisce la copia il cui id è uguale al parametro di path copiaId.
+    post:
+      summary: ''
+      operationId: post-copie-copiaId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Copia'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Aggiorna la copia il cui id è uguale al parametro di path copiaId.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                libro:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: number
+                disponibile:
+                  type: boolean
+                cliente:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+              required:
+                - libro
+                - disponibile
+    delete:
+      summary: ''
+      operationId: delete-copie-copiaId
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: Elimina la copia il cui id è uguale al parametro di path copiaId.
+components:
+  schemas:
+    Autore:
+      description: ''
+      type: object
+      x-examples:
+        Joanne Rowling:
+          id: 1000
+          nome: Joanne
+          cognome: Rowling
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        cognome:
+          type: string
+      required:
+        - id
+        - nome
+        - cognome
+    CasaEditrice:
+      description: ''
+      type: object
+      x-examples:
+        Adriano Salani Editore:
+          id: 1000
+          nome: Adriano Salani Editore
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+      required:
+        - id
+        - nome
+    ClienteTesserato:
+      description: ''
+      type: object
+      x-examples:
+        Luigi Verdi:
+          id: 1000
+          nome: Luigi
+          cognome: Verdi
+          codiceFiscale: VSSMRA30A01H501I
+          idTessera: 12343
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        cognome:
+          type: string
+        codiceFiscale:
+          type: string
+        idTessera:
+          type: number
+      required:
+        - id
+        - nome
+        - cognome
+        - codiceFiscale
+        - idTessera
+    ClienteNonTesserato:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        cognome:
+          type: string
+        codiceFiscale:
+          type: string
+      required:
+        - id
+        - nome
+        - cognome
+        - codiceFiscale
+    Libro:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        isbn:
+          type: number
+        titolo:
+          type: string
+        anno:
+          type: number
+        casaEditrice:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: number
+        autori:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+            required:
+              - id
+        prequel:
+          $ref: '#/components/schemas/Libro'
+      required:
+        - id
+        - isbn
+        - titolo
+        - anno
+        - casaEditrice
+        - autori
+    Copia:
+      title: Copia
+      type: object
+      properties:
+        id:
+          type: number
+        libro:
+          $ref: '#/components/schemas/Libro'
+        disponibile:
+          type: boolean
+        cliente:
+          $ref: '#/components/schemas/Cliente'
+      required:
+        - id
+        - libro
+        - disponibile
+    Cliente:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        cognome:
+          type: string
+        codiceFiscale:
+          type: string
+          minLength: 16
+          maxLength: 16
+      required:
+        - id
+        - nome
+        - cognome
+        - codiceFiscale
