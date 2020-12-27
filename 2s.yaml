@@ -21,7 +21,7 @@ paths:
                   $ref: '#/components/schemas/Autore'
       description: |
         Restituisce gli autori.</br>
-        È possibile filtrare gli autori utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare gli autori utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/autori?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
         questa richiesta restituirà tutti gli autori che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
         - **/autori?search=nome:Mario,cognome!Rossi**<br/>
@@ -135,7 +135,7 @@ paths:
                   $ref: '#/components/schemas/CasaEditrice'
       description: |-
         Restituisce le case editrici.</br>
-        È possibile filtrare le case editrici utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare le case editrici utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/casaEditrici?search=nome:Adriano\*,nome:*tore,id>300,id<2000** <br/>
         questa richiesta restituirà tutte le case editrici che hanno un nome che inizia con Adriano,che termina con tore e un id compreso tra 300 e 2000.
         - **/casaEditrici?search=nome!Mondadori**<br/>
@@ -252,7 +252,7 @@ paths:
           name: search
       description: |-
         Restituisce i clienti tesserati.</br>
-        È possibile filtrare i clienti tesserati utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare i clienti tesserati utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/clientiTesserati?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
         questa richiesta restituirà tutti i clienti tesserati che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
         - **/clientiTesserati?search=nome:Mario,cognome!Rossi**<br/>
@@ -381,7 +381,7 @@ paths:
       operationId: get-clientiNonTesserati
       description: |-
         Restituisce i clienti tesserati.</br>
-        È possibile filtrare i clienti non tesserati utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare i clienti non tesserati utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/clientiNonTesserati?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
         questa richiesta restituirà tutti i clienti non tesserati che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
         - **/clientiNonTesserati?search=nome:Mario,cognome!Rossi**<br/>
@@ -677,7 +677,7 @@ paths:
       operationId: get-copie
       description: |-
         Restituisce le copie.</br>
-        È possibile filtrare le copie utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare le copie utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/copie?search=disponibile:true** <br/>
         questa richiesta restituirà tutte le copie disponibili
       parameters:
@@ -846,6 +846,8 @@ components:
           type: string
         codiceFiscale:
           type: string
+          minLength: 16
+          maxLength: 16
         idTessera:
           type: number
       required:
