@@ -236,7 +236,6 @@ paths:
   /clientiTesserati:
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -373,7 +372,6 @@ paths:
   /clientiNonTesserati:
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -499,7 +497,6 @@ paths:
   /libri:
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
