@@ -672,8 +672,7 @@ paths:
         Con l'eliminazione di un libro verranno eliminate anche le sue copie.
   /copie:
     get:
-      summary: ''
-      operationId: get-autori
+      summary: Your GET endpoint
       responses:
         '200':
           description: OK
@@ -682,14 +681,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Autore'
-      description: |
-        Restituisce gli autori.</br>
-        È possibile filtrare gli autori utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
-        - **/autori?search=nome:Mar\*,cognome:\*ssi,id>300,id<2000** <br/>
-        questa richiesta restituirà tutti gli autori che hanno un nome che inizia con Mar, un cognome che termina con ssi e un id compreso tra 300 e 2000.
-        - **/autori?search=nome:Mario,cognome!Rossi**<br/>
-        questa richiesta restituirà tutti gli autori che si chiamano Mario e che hanno il cognome diverso da Rossi.
+                  $ref: '#/components/schemas/Copia'
+      operationId: get-copie
+      description: |-
+        Restituisce le copie.</br>
+        È possibile filtrare le copie utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        - **/copie?search=disponibile:true** <br/>
+        questa richiesta restituirà tutte le copie disponibili
       parameters:
         - schema:
             type: string
