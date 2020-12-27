@@ -361,6 +361,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteTesserato'
         '404':
           description: Not Found
       description: |-
@@ -508,7 +512,7 @@ paths:
       operationId: get-libri
       description: |-
         Restituisce i libri.</br>
-        È possibile filtrare i libri utilizzando il parametro non obbligatorio search, vediamo alcuni esempi:
+        È possibile filtrare i libri utilizzando il parametro di query search, vediamo alcuni esempi:
         - **/libri?search=titolo:Le avventure\*,titolo:Le :*io,anno!1998,id>300,id<2000** <br/>
         questa richiesta restituirà tutte i libri che hanno un nome che inizia con Le avventure,che termina con io, un anno di pubblicazione diverso da 1998 e un id compreso tra 300 e 2000.
         - **/libri?search=nome!Le avventure**<br/>
