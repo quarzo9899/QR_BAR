@@ -69,7 +69,6 @@ paths:
         description: id dell'autore
     get:
       summary: Your GET endpoint
-      tags: []
       operationId: get-autori-autoreId
       description: Restituisce l'autore il cui id è uguale al parametro di path autoreId.
       responses:
@@ -182,7 +181,6 @@ paths:
         description: id della casa editrice
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -305,7 +303,6 @@ paths:
         description: id del cliente tesserato
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -437,7 +434,6 @@ paths:
         description: id del cliente non tesserato
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -586,7 +582,6 @@ paths:
         description: id del libro
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -737,7 +732,6 @@ paths:
         description: id della copia
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
