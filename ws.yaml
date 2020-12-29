@@ -868,6 +868,8 @@ components:
           type: string
         codiceFiscale:
           type: string
+          minLength: 16
+          maxLength: 16
       required:
         - id
         - nome
