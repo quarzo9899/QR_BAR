@@ -791,6 +791,103 @@ paths:
         '404':
           description: Not Found
       description: Elimina la copia il cui id è uguale al parametro di path copiaId.
+  '/libri/byNomeAutore/{nomeAutore}':
+    parameters:
+      - schema:
+          type: string
+        name: nomeAutore
+        in: path
+        required: true
+        description: nome dell'autore
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Libro'
+        '404':
+          description: Not Found
+      operationId: get-libri-byNomeAutore-nomeAutore
+      description: Ricerca e restituisce tutti i libri che tra gli autori contengo un autore con lo stesso nome del  parmaetro di path nomeAutore.
+  '/libri/byNomeCasaEditrice/{nomeCasaEditrice}':
+    parameters:
+      - schema:
+          type: string
+        name: nomeCasaEditrice
+        in: path
+        required: true
+        description: nome della casa editrice
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Libro'
+        '404':
+          description: Not Found
+      operationId: get-libri-byNomeCasaEditrice-nomeCasaEditrice
+      description: Ricerca e restituisce tutti i libri la cui casa editrice è la stessa del parmaetro di path nomeCasaEditrice.
+  '/copie/byLibroTitolo/{libroTitolo}':
+    parameters:
+      - schema:
+          type: string
+        name: libroTitolo
+        in: path
+        required: true
+        description: titolo del libro
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Copia'
+        '404':
+          description: Not Found
+      operationId: get-copie-byLibroTitolo-libroTitolo
+      description: Ricerca e restituisce tutte le copie il cui libro associato ha il titolo come il parmaetro di path libroTitolo.
+  '/copie/byCodiceFiscaleCliente/{codiceFiscaleCliente}':
+    parameters:
+      - schema:
+          type: string
+        name: codiceFiscaleCliente
+        in: path
+        required: true
+        description: codice fiscale del cliente
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Copia'
+        '404':
+          description: Not Found
+      operationId: get-copie-byCodiceFiscaleCliente-codiceFiscaleCliente
+      description: Ricerca e restituisce tutte le copie il cui cliente associato ha il codice fiscale come il parmaetro di path codiceFiscaleCliente.
 components:
   schemas:
     Autore:
