@@ -801,7 +801,6 @@ paths:
         description: nome dell'autore
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -826,7 +825,6 @@ paths:
         description: nome della casa editrice
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -850,7 +848,6 @@ paths:
         description: titolo del libro
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
@@ -874,7 +871,6 @@ paths:
         description: codice fiscale del cliente
     get:
       summary: Your GET endpoint
-      tags: []
       responses:
         '200':
           description: OK
